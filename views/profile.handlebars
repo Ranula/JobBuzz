@@ -1,0 +1,14 @@
+{{>navbar1}}
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <!--<h1><span class="fa fa-lock"></span> Profile</h1>-->
+
+        <p>Hello There {{ user.local.company_name }}</p>
+        <p> Hotline : {{ user.local.Hotline }} </p>
+        <!--<p> Last Name : {{ user.local.last_name }} </p>-->
+        <p> email : {{ user.local.email }} </p>
+        <a href="/postJob" class="btn btn-default"><span class="fa fa-user"></span> Post a job</a>
+        </div>
+
+</div>

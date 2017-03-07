@@ -1,0 +1,62 @@
+<nav>
+    <div class="nav-wrapper green ">
+        <a href="#" class="brand-logo"><i class="material-icons">supervisor_account</i>Post a Job </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <!--<li><a href="badges.html">Components</a></li>-->
+            <li><a href="/logout">Logout</a></li>
+
+
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="col-sm-6 col-sm-offset-3">
+
+
+        <!-- show any messages that come back with authentication -->
+        {{#if message.length }}
+            <div class="alert alert-danger">{{message}}</div>
+        {{/if}}
+
+        <!-- Job posting FORM -->
+
+        <form action="/signup" method="post">
+
+            <div class="input-field col s12">
+                <label for="timepicker">Start Time</label>
+                <input id="timepicker" class="timepicker" type="time">
+
+            </div>
+
+
+
+
+
+        </form>
+
+        <hr>
+
+        <p>Already have an account? <a href="/login">Login</a></p>
+        <p>Or go <a href="/">home</a>.</p>
+
+    </div>
+
+</div>
+<script>
+    $('#timepicker').pickatime({
+        autoclose: false,
+        twelvehour: true,
+        default: 'now'
+    });
+</script>
+<script>
+    var picker = new MaterialDatetimePicker({})
+            .on('submit', function(d) {
+                output.innerText = d;
+            });
+    var el = document.querySelector('.c-datepicker-btn');
+    el.addEventListener('click', function() {
+        picker.open();
+    }, false);
+</script>
