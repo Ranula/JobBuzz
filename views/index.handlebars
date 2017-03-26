@@ -1,13 +1,36 @@
 {{>navbar}}
-<div class="container">
 
-    <div class="jumbotron text-center">
-        <!--<h1><span class="fa fa-lock"></span> Node Authentication</h1>-->
 
-        <p>Login or Register with:</p>
+<div class="page-header">
 
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
-    </div>
+            <div class ="row">
+                <div class="col s8"></div>
+                <div class="col s4">
 
-</div>
+            {{#if message.length }}
+                <div class="alert alert-danger">{{message}}</div>
+            {{/if}}
+            <form method="post" action="/login">
+                <p><input type="text" name="email" value="" placeholder="Email"></p>
+                <p><input type="password" name="password" value="" placeholder="Password"></p>
+               <div class="row">
+                   <div class="col s4"></div>
+                   <div class="col s8">
+                <button type="submit" class="btn btn-warning btn-lg">Login</button>
+                   </div>
+               </div>
+            </form>
+
+
+
+                    <div class="row">
+                        <div class="col s4"></div>
+                        <div class="col s8">
+                            <h3>
+                            <a href="/signup" >Register</a></h3>
+                        </div>
+                    </div>
+
+            </div>
+            </div>
+

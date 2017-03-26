@@ -3,6 +3,7 @@
         <a href="#" class="brand-logo"><i class="material-icons">supervisor_account</i>Post a Job </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!--<li><a href="badges.html">Components</a></li>-->
+            <li><a href="/profile">Profile</a> </li>
             <li><a href="/logout">Logout</a></li>
 
 
@@ -21,26 +22,31 @@
 
         <!-- Job posting FORM -->
 
-        <form action="/signup" method="post">
+        <form action="/PostJob" method="post">
 
+
+
+            <input type="date" class="datepicker" placeholder="Date">
             <div class="input-field col s12">
-                <label for="timepicker">Start Time</label>
-                <input id="timepicker" class="timepicker" type="time">
-
+                <!--<label for="timepicker">Start Time</label>-->
+                <input id="timepicker" class="timepicker" type="time" placeholder="Start Time">
             </div>
-
-
-
-
-
-        </form>
-
-        <hr>
-
-        <p>Already have an account? <a href="/login">Login</a></p>
-        <p>Or go <a href="/">home</a>.</p>
-
+            <div class="input-field col s12">
+            <select multiple>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <label>Materialize Multiple Select</label>
     </div>
+
+
+
+
+
+    </form>
+
 
 </div>
 <script>
@@ -49,14 +55,19 @@
         twelvehour: true,
         default: 'now'
     });
-</script>
-<script>
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+
     var picker = new MaterialDatetimePicker({})
             .on('submit', function(d) {
                 output.innerText = d;
             });
+
     var el = document.querySelector('.c-datepicker-btn');
     el.addEventListener('click', function() {
         picker.open();
     }, false);
+
 </script>

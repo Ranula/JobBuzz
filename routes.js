@@ -27,11 +27,11 @@ module.exports = function(app, passport) {
     // locally --------------------------------
     // LOGIN ===============================
     // show the login form
-    app.get('/login', function(req, res) {
-        res.render('login', {
-            message: req.flash('loginMessage')
-        });
-    });
+    // app.get('/login', function(req, res) {
+    //     res.render('login', {
+    //         message: req.flash('loginMessage')
+    //     });
+    // });
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
@@ -70,4 +70,43 @@ module.exports = function(app, passport) {
             user: req.user
         });
     });
-};
+
+    //branch adding
+    var Branch = require("./src/model/branch");
+    var User = require("./src/model/user")
+    app.post('/AddBranch',isLoggedIn, function(req, res) {
+        var newBranch = new Branch();
+        newBranch.branch_name = req.body.branch_name;
+        newBranch.company_name = req.user.local.company_name;
+        newBranch.location = req.body.location;
+        // console.log(req.body);
+        newBranch.save(function(err) {
+            if (err){
+                return err;
+        }
+        else {
+                User.findOneAndUpdate(
+                    {'local.company_name': req.user.local.company_name},
+                    // {branch_name: "replace"},
+                    {$push: {'local.branches': req.body.branch_name}},
+                    // {location: req.body.branch_name},
+                    {safe: true, upsert: true},
+                    function(err) {
+                        console.log(err);
+                    }
+                );
+            console.log("Post saved");
+                res.redirect('/profile');
+
+        }
+
+    })
+
+});
+}
+
+
+
+
+
+
