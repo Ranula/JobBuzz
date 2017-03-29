@@ -10,7 +10,8 @@ var userSchema = mongoose.Schema({
         Hotline        : String,
         email          : String,
         password       : String,
-        branches       :[String]
+        branches       :[String],
+        jobs:           [String],
     }
 
 });

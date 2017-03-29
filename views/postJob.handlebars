@@ -1,55 +1,91 @@
 <nav>
-    <div class="nav-wrapper green ">
+    <link href="/css/inside.css" rel="stylesheet" type="text/css">
+    <div class="nav-wrapper blue-grey ">
         <a href="#" class="brand-logo"><i class="material-icons">supervisor_account</i>Post a Job </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!--<li><a href="badges.html">Components</a></li>-->
-            <li><a href="/profile">Profile</a> </li>
+            <li><a href="/profile">
+                {{ user.local.company_name }}</a> </li>
             <li><a href="/logout">Logout</a></li>
-
-
         </ul>
     </div>
 </nav>
+
 <div class="container">
 
     <div class="col-sm-6 col-sm-offset-3">
 
-
+        <p id="s1" hidden>{{ user.local.branches }} </p>
         <!-- show any messages that come back with authentication -->
         {{#if message.length }}
             <div class="alert alert-danger">{{message}}</div>
         {{/if}}
 
-        <!-- Job posting FORM -->
-
         <form action="/PostJob" method="post">
-
-
-
-            <input type="date" class="datepicker" placeholder="Date">
-            <div class="input-field col s12">
-                <!--<label for="timepicker">Start Time</label>-->
-                <input id="timepicker" class="timepicker" type="time" placeholder="Start Time">
+            <div class="form-group">
+                <label>Position</label>
+                <input type="text" class="form-control" name="position" required>
+            </div><div class="form-group">
+            <label>Date</label>
+            <input type="date" class="datepicker" name="job_date"  required>
             </div>
+            <div class="form-group">
+                <label>Start Time</label>
+                <input id="timepicker" class="timepicker" type="time" name="starttime"  required>
+
+            </div>
+            <div class="form-group">
+                <label>Duration(Hours)</label>
+                <input type="number" class="form-control" name="duration" required>
+            </div><div class="form-group">
+            <label>Hourly Rate(SLR)</label>
+            <input type="number" class="form-control" name="rate">
+        </div>
             <div class="input-field col s12">
-            <select multiple>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-            <label>Materialize Multiple Select</label>
-    </div>
-
-
-
-
-
+                <select id="slct2" name="branch" required>
+                    <option value="" disabled selected>Choose a Branch</option>
+                </select>
+            </div>
+ <div class="row">
+     <div class="col s5"></div>
+     <div class="col s7">
+            <button type="submit" class="btn btn-warning btn-lg blue-grey">Post</button>
+     </div>
+ </div>
     </form>
 
 
 </div>
+</div>
 <script>
+
+    $(document).ready(function() {
+//        console.log("TESTTTTTTTTS");
+        $('select').material_select();
+        populate();
+    });
+
+
+function populate(){
+    var s1 = document.getElementById("s1");
+    var s2 = document.getElementById("slct2");
+
+
+        var optionArray = s1.textContent;
+
+    var pair = optionArray.split(",");
+    for (var i = 0; i < pair.length; i++) {
+
+        var newOption = document.createElement("option");
+        newOption.value = pair[i];
+        newOption.innerHTML = pair[i];
+        s2.options.add(newOption);
+    }
+
+
+
+    $('select').material_select();
+}
     $('#timepicker').pickatime({
         autoclose: false,
         twelvehour: true,

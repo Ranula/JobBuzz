@@ -9,10 +9,13 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile', {
-            user: req.user
-        });
+        if (req.user.local.jobs.length>0){
+            Job.GetJob(req.user,res);
+        }else{
+            res.render('profile', {user: req.user});
+        }
     });
+    
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
@@ -36,7 +39,7 @@ module.exports = function(app, passport) {
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/profile', // redirect to the secure profile section
-        failureRedirect: '/login', // redirect back to the signup page if there is an error
+        failureRedirect: '/', // redirect back to the home page if there is an error
         failureFlash: true // allow flash messages
     }));
 
@@ -64,45 +67,38 @@ module.exports = function(app, passport) {
         res.redirect('/');
     }
     //JobPosting
-   
-    app.get('/postJob', isLoggedIn, function(req, res) {
+   //Job posting form
+    var Job = require("./src/middleware/Job");
+    app.get('/postJob', isLoggedIn, function(req, res){
+        if(req.user.local.branches.length>0){
         res.render('postJob', {
             user: req.user
         });
+        }else{
+            // window.alert("You Must Add a Branch");
+            res.redirect('/profile')
+        }
     });
 
-    //branch adding
-    var Branch = require("./src/model/branch");
-    var User = require("./src/model/user")
-    app.post('/AddBranch',isLoggedIn, function(req, res) {
-        var newBranch = new Branch();
-        newBranch.branch_name = req.body.branch_name;
-        newBranch.company_name = req.user.local.company_name;
-        newBranch.location = req.body.location;
-        // console.log(req.body);
-        newBranch.save(function(err) {
-            if (err){
-                return err;
-        }
-        else {
-                User.findOneAndUpdate(
-                    {'local.company_name': req.user.local.company_name},
-                    // {branch_name: "replace"},
-                    {$push: {'local.branches': req.body.branch_name}},
-                    // {location: req.body.branch_name},
-                    {safe: true, upsert: true},
-                    function(err) {
-                        console.log(err);
-                    }
-                );
-            console.log("Post saved");
-                res.redirect('/profile');
+    //Rendering the post Job form
+    
+    app.post('/PostJob',isLoggedIn,function (req,res) {
 
-        }
+        Job.AddJob(req);
+
+        res.redirect('/profile');
+
 
     })
 
+    //branch adding
+    var Branch = require("./src/middleware/Branch")
+    app.post('/AddBranch',isLoggedIn, function(req, res) {
+        Branch.AddBranch(req);
+        
+        res.redirect('/profile');
 });
+   
 }
 
 
