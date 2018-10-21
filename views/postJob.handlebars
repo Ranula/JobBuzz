@@ -5,7 +5,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!--<li><a href="badges.html">Components</a></li>-->
             <li><a href="/profile">
-                {{ user.local.company_name }}</a> </li>
+                {{ user.local.company_name }}</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </div>
@@ -25,67 +25,66 @@
             <div class="form-group">
                 <label>Position</label>
                 <input type="text" class="form-control" name="position" required>
-            </div><div class="form-group">
-            <label>Date</label>
-            <input type="date" class="datepicker" name="job_date"  required>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="datepicker" name="job_date" required>
             </div>
             <div class="form-group">
                 <label>Start Time</label>
-                <input id="timepicker" class="timepicker" type="time" name="starttime"  required>
+                <input id="timepicker" class="timepicker" type="time" name="starttime" required>
 
             </div>
             <div class="form-group">
                 <label>Duration(Hours)</label>
                 <input type="number" class="form-control" name="duration" required>
-            </div><div class="form-group">
-            <label>Hourly Rate(SLR)</label>
-            <input type="number" class="form-control" name="rate">
-        </div>
+            </div>
+            <div class="form-group">
+                <label>Hourly Rate(SLR)</label>
+                <input type="number" class="form-control" name="rate">
+            </div>
             <div class="input-field col s12">
                 <select id="slct2" name="branch" required>
                     <option value="" disabled selected>Choose a Branch</option>
                 </select>
             </div>
- <div class="row">
-     <div class="col s5"></div>
-     <div class="col s7">
-            <button type="submit" class="btn btn-warning btn-lg blue-grey">Post</button>
-     </div>
- </div>
-    </form>
+            <div class="row">
+                <div class="col s5"></div>
+                <div class="col s7">
+                    <button type="submit" class="btn btn-warning btn-lg blue-grey">Post</button>
+                </div>
+            </div>
+        </form>
 
 
-</div>
+    </div>
 </div>
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 //        console.log("TESTTTTTTTTS");
         $('select').material_select();
         populate();
     });
 
 
-function populate(){
-    var s1 = document.getElementById("s1");
-    var s2 = document.getElementById("slct2");
+    function populate() {
+        var s1 = document.getElementById("s1");
+        var s2 = document.getElementById("slct2");
 
 
         var optionArray = s1.textContent;
 
-    var pair = optionArray.split(",");
-    for (var i = 0; i < pair.length; i++) {
-
-        var newOption = document.createElement("option");
-        newOption.value = pair[i];
-        newOption.innerHTML = pair[i];
-        s2.options.add(newOption);
+        var pair = optionArray.split(",");
+        for (var i = 0; i < pair.length; i++) {
+            var newOption = document.createElement("option");
+            newOption.value = pair[i];
+            newOption.innerHTML = pair[i];
+            s2.options.add(newOption);
+        }
+        $('select').material_select();
     }
 
-
-
-    $('select').material_select();
-}
     $('#timepicker').pickatime({
         autoclose: false,
         twelvehour: true,
@@ -97,12 +96,12 @@ function populate(){
     });
 
     var picker = new MaterialDatetimePicker({})
-            .on('submit', function(d) {
+            .on('submit', function (d) {
                 output.innerText = d;
             });
 
     var el = document.querySelector('.c-datepicker-btn');
-    el.addEventListener('click', function() {
+    el.addEventListener('click', function () {
         picker.open();
     }, false);
 

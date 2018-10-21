@@ -1,3 +1,4 @@
+//dependancies
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -20,8 +21,12 @@ var handlebars = require('express-handlebars').create({
 var app = express();
 
 app.use(morgan('dev')); // log every request to the console
-mongoose.connect('mongodb://127.0.0.1:27017/samplenodejsapp')
-
+// mongoose.connect('mongodb://127.0.0.1:27017/samplenodejsapp')
+// mongoose.connect('mongodb://admin:123@ds131041.mlab.com:31041/jb')
+mongoose.connect('mongodb://admin:123@ds131041.mlab.com:31041/jb', { server: { socketOptions: { connectTimeoutMS: 10000 }}}, function(err) {
+    if(err){
+        console.log(err)
+    }});
 require('./src/middleware/passport')(passport);
 
 app.use(cookieParser('SampleNode.jsApp')); //read cookies
@@ -41,6 +46,10 @@ app.use(passport.initialize());
 app.use(passport.session()); //persistant login sessions
 app.use(serveStatic('./public')); //serve static files from public directory
 app.use(flash()); //used to display flash messages from sessions
+
+
+//API TEST
+app.use('/api',require('./routes/api'));
 // app.use('/scripts', express.static(__dirname + '/node_modules/materialize-clockpicker/src/js'));
 require('./routes')(app, passport); // include routes
 app.listen(process.env.PORT || 3000);

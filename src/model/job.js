@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var restful = require('node-restful');
 var JobSchema = mongoose.Schema({
     Job_ID: String,
     company_name: String,
@@ -15,4 +15,4 @@ var JobSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('job', JobSchema);
-
+module.exports = restful.model('Job',JobSchema);

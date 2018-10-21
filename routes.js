@@ -1,3 +1,6 @@
+var Jobb = require('./src/model/job');
+var Employee = require('./src/model/employee');
+var mongoose = require('mongoose');
 module.exports = function(app, passport) {
 
     // normal routes ===============================================================
@@ -98,7 +101,40 @@ module.exports = function(app, passport) {
         
         res.redirect('/profile');
 });
-   
+ 
+    //view Job
+    app.get('/Jobview/:id/:position', isLoggedIn, function(req, res){
+            console.log(req.params.id);
+            Job.GetJob2(req,res);
+            // res.render('Jobview', {
+            //     user: req.user
+            // });
+        
+    });
+
+    app.get('/JobDelete/:id/:position',function (req,res) {
+        Jobb.remove({ '_id': req.params.id }, function (err) {
+            if (err) return handleError(err);
+            Employee.remove({ 'position': req.params.position }, function (err) {
+                if (err) return handleError(err);
+                res.redirect('/profile');
+            });
+        });
+    })
+
+    //view Job
+    app.get('/Review/:id/', isLoggedIn, function(req, res){
+        Job.GetEmployee(req,res);
+        // res.render("rate", {user: req.user, JobDetails: job, Employee: docs});
+    });
+    var Ratings = require("./src/middleware/Ratings");
+    app.post('/Review/:Enumber/', isLoggedIn, function(req, res){
+        console.log(req.params.Enumber);
+        Ratings.AddRating(req,res);
+        // res.render("rate", {user: req.user, JobDetails: job, Employee: docs});
+    });
+
+    
 }
 
 

@@ -1,0 +1,49 @@
+{{>navbar1}}
+<div class="container">
+
+    <div class="col-sm-6 col-sm-offset-3">
+
+        <h1><span class="fa fa-sign-in"></span> Rate and Review</h1>
+
+<div class ="row">
+    <div class="col s8">
+        <li>Name:------------{{ Employee.Ename }}</li>
+        <li>Number:----------{{ Employee.Enumber }}</li>
+    </div>
+
+</div>
+    <form action="/Review/{{ Employee.Enumber }}" method="post">
+        <div class="form-group">
+            <label>Review</label>
+            <input type="text" class="form-control" name="review" required>
+        </div>
+
+        <div class="form-group">
+            <select id="rate" name="rating" required>
+                <option value="" disabled selected>Give a Rating out of 5</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <label>Materialize Select</label>
+        </div>
+
+        <div class="row">
+            <div class="col s4"></div>
+            <div class="col s8">
+                <button type="submit" class="btn btn-warning btn-lg blue-grey">Submit</button>
+            </div>
+            <a href="/">HOME</a>
+        </div>
+    </form>
+
+</div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>

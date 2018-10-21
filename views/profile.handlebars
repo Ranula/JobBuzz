@@ -1,92 +1,120 @@
 {{>navbar1}}
 <!--<div class="container">-->
 
-    <!--<div class="jumbotron text-center">-->
-        <!--<h1><span class="fa fa-lock"></span> Profile</h1>-->
-<div class ="row">
-<div class="col s3">
+<!--<div class="jumbotron text-center">-->
+<!--<h1><span class="fa fa-lock"></span> Profile</h1>-->
+<div class="row">
+    <div class="col s3">
         <h3>{{ user.local.company_name }}</h3>
         <p> Hotline : {{ user.local.Hotline }} </p>
         <!--<p> Last Name : {{ user.local.last_name }} </p>-->
         <p> Email : {{ user.local.email }} </p>
-    <p> Branches : {{ user.local.branches }} </p>
-    <a href="#" class="btn btn-default blue-grey"><span class="fa fa-user"></span> Edit info</a>
-  <!--Select place for a branch-->
-</div>
-<div class="col s4">
-    <form action="/AddBranch" method="post">
-    <h3>New Branch</h3>
-    <div class="row s4">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-            <div id="pac-container">
-                <input id="pac-input" type="text"
-                       placeholder="Search and pick the location" required>
-            </div>
-
-        <div id="map"></div>
-        <div id="infowindow-content">
-            <img src="" width="10" height="10" id="place-icon">
-            <span id="place-name"  class="title"></span><br>
-            <span id="place-address"></span>
-        </div>
-            <input  id="location" name="location"  type="hidden" placeholder="Location" required >
-            <!--<input name="company_name" value={{ user.local.company_name }}>-->
-            <input  id="branch_name" name="branch_name" type="text" placeholder="Branch Name" required >
+        <p> Branches : {{ user.local.branches }} </p>
+        <!--<p> Branches : {{ user.local.jobs }} </p>-->
+        <a href="#" class="btn btn-default blue-grey"><span class="fa fa-user"></span> Edit info</a>
+        <!--Select place for a branch-->
+    </div>
+    <div class="col s4">
+        <form action="/AddBranch" method="post">
             <div class="row">
-                <div class="col s4"></div>
-            <button type="submit" class="btn btn-warning btn-lg blue-grey">Submit</button>
+                <div class="col s2"></div>
+                <div class="col s10">
+                    <h3>New Branch</h3>
+                </div>
             </div>
-        </div>
+            <div class="row s4">
+                <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+                <meta charset="utf-8">
+                <div id="pac-container">
+                    <input id="pac-input" type="text"
+                           placeholder="Search and pick the location" required>
+                </div>
+
+                <div id="map"></div>
+                <div id="infowindow-content">
+                    <img src="" width="10" height="10" id="place-icon">
+                    <span id="place-name" class="title"></span><br>
+                    <span id="place-address"></span>
+                </div>
+                <input id="location" name="location" type="hidden" placeholder="Location" required>
+                <div class="row">
+                    <div class="col s8">
+                        <select id="slct2" name="district" required>
+                            <option value="" disabled selected>Choose District</option>
+                        </select>
+                    </div>
+
+                    <div class="col s4">
+                        <input id="branch_name" name="branch_name" type="text" placeholder="Branch Name" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s4"></div>
+                    <button type="submit" class="btn btn-warning btn-lg blue-grey">Submit</button>
+                </div>
+            </div>
         </form>
 
 
-
-</div>
-<div class ="col s5">
-    <div class="row">
-    <div class="col s3"></div>
-    <div class="col s9">
-        <h3>Job Details</h3>
     </div>
-        </div>
-    <!--<lable id="jobs" hidden > jobs : {{ user.local.jobs}} </lable>-->
-    <!--<lable id="Display">{{MyJobList}}</lable>-->
-    {{#each MyJobList}}
+    <div class="col s5">
         <div class="row">
-            <div class="col s6">
-                <li>Job Date  :{{this.job_date}}</li>
-                <li>Start time:{{this.start_time}}</li>
-                <li>Branch Name:{{this.branch_name}}</li>
-            </div>
-            <div class="col s6">
-                <li>Position  :{{this.position}}</li>
-                <li>Status    : {{this.status}}</li>
-                <li>Employees :{{this.employees}}</li>
+            <div class="col s3"></div>
+            <div class="col s9">
+                <h3>Job Details</h3>
             </div>
         </div>
+        <!--<lable id="jobs" hidden > jobs : {{ user.local.jobs}} </lable>-->
+        <!--<lable id="Display">{{MyJobList}}</lable>-->
+        {{#each MyJobList}}
+            <div class="row">
+                <div class="col s6">
+                    <li>Job Date :{{this.job_date}}</li>
+                    <li>Start time:{{this.start_time}}</li>
+                    <li>Branch Name:{{this.branch_name}}</li>
+                </div>
+                <div class="col s6">
+                    <li>Position :{{this.position}}</li>
+                    <li>Status : {{this.status}}</li>
+                    <li>Employees :{{this.employees}}</li>
+                    <!--<li>Employees :{{this.id}}</li>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s5"></div>
+                <div class="col s7">
+                    <a href="/Jobview/{{this.id}}/{{this.position}}"> View </a>
+                </div>
+                <hr>
+            </div>
+        {{/each}}
         <div class="row">
-            <div class="col s5"></div>
-            <div class="col s7">
-            <a href="#" > View </a>
+            <div class="col s4"></div>
+            <div class="col s8">
+                <a href="/postJob" class="btn btn-default blue-grey"><span class="fa fa-user"></span> Post a job</a>
             </div>
-            <hr>
         </div>
-    {{/each}}
-    <div class="row">
-        <div class="col s4"></div>
-      <div class="col s8">
-    <a href="/postJob" class="btn btn-default blue-grey"><span class="fa fa-user"></span> Post a job</a>
-      </div>
     </div>
-</div>
 </div>
 
 
 <script>
-    $(document).ready(function() {
-//        jobShow();
+    $(document).ready(function () {
+        populate();
     });
+    function populate() {
+
+        var s2 = document.getElementById("slct2");
+        var optionArray = "Ampara,Anuradhapura,Badulla,Batticaloa,Colombo,Galle,Gampaha,Hambanthota,Jaffna,Kaluthara,Kandy,Kegalle,Kurunagala,Kilinochci,Mannar";
+        var pair = optionArray.split(",");
+        for (var i = 0; i < pair.length; i++) {
+            var newOption = document.createElement("option");
+            newOption.value = pair[i];
+            newOption.innerHTML = pair[i];
+            s2.options.add(newOption);
+        }
+        $('select').material_select();
+    }
 
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -96,9 +124,10 @@
         //getting Address
         var geocoder1 = new google.maps.Geocoder;
         var infowindow1 = new google.maps.InfoWindow;
-        function geocodeLatLng(geocoder, map, infowindow,latlng) {
 
-            geocoder.geocode({'location': latlng}, function(results, status) {
+        function geocodeLatLng(geocoder, map, infowindow, latlng) {
+
+            geocoder.geocode({'location': latlng}, function (results, status) {
                 if (status === 'OK') {
                     if (results[1]) {
                         infowindow.setContent(results[0].formatted_address);
@@ -109,7 +138,8 @@
                 } else {
                     window.alert('Geocoder failed due to: ' + status);
                 }
-            });}
+            });
+        }
 
         var card = document.getElementById('pac-card');
         var input = document.getElementById('pac-input');
@@ -133,7 +163,7 @@
         });
         autocomplete.setOptions({strictBounds: true});
         autocomplete.setOptions({strictBounds: true});
-        autocomplete.addListener('place_changed', function() {
+        autocomplete.addListener('place_changed', function () {
             infowindow.close();
 //                marker.setVisible(false);
             var place = autocomplete.getPlace();
@@ -151,12 +181,12 @@
                 map.setCenter(place.geometry.location);
                 map.setZoom(10);  // Why 10? Because it looks good.
             }
-            map.addListener('click', function(e) {
+            map.addListener('click', function (e) {
 //                    placeMarkerAndPanTo(e.latLng, map);
                 marker.setPosition(e.latLng)
                 marker.setVisible(true);
                 var langlat = document.getElementById("location");
-                langlat.value= e.latLng.toString();
+                langlat.value = e.latLng.toString();
 //                    langlat.value= "dadasdasd";
 //                  geocodeLatLng(geocoder1, map, infowindow1,e.latLng);
             });
@@ -180,32 +210,29 @@
     }
 
 
-
-
     //Job Showing
 
-//    function jobShow() {
-//        var job101 = document.getElementById("Display");
-//        var inputs =   document.getElementById("jobs");
-//        var jobArray = inputs.textContent.split(",");
-//
-//        console.log(jobArray);
-//        var final="";
-//        var x = jobArray.length;
-//        if (x >= 10) {
-//
-//        } else {
-//            for (var i = 0; i < x; i+=2) {
-//                var jobDisplay= jobArray[i].split(":");
-//
-//                var str =( "Branch").concat( jobDisplay[1]).concat("  Position:").concat(jobDisplay[2]);
-//                final=final.concat(str);
-//            }
-//
-//            job101.textContent=final;
-//        }
-//    }
-
+    //    function jobShow() {
+    //        var job101 = document.getElementById("Display");
+    //        var inputs =   document.getElementById("jobs");
+    //        var jobArray = inputs.textContent.split(",");
+    //
+    //        console.log(jobArray);
+    //        var final="";
+    //        var x = jobArray.length;
+    //        if (x >= 10) {
+    //
+    //        } else {
+    //            for (var i = 0; i < x; i+=2) {
+    //                var jobDisplay= jobArray[i].split(":");
+    //
+    //                var str =( "Branch").concat( jobDisplay[1]).concat("  Position:").concat(jobDisplay[2]);
+    //                final=final.concat(str);
+    //            }
+    //
+    //            job101.textContent=final;
+    //        }
+    //    }
 
 
 </script>

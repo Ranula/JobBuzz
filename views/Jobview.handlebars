@@ -1,0 +1,37 @@
+{{>navbar1}}
+<h1>Details</h1>
+<div class="row">
+    <div class="col s5">
+        <li>Job Date:------------{{JobDetails.job_date}}</li>
+        <li>Start time:----------{{JobDetails.start_time}}</li>
+        <li>Branch Name:---------{{JobDetails.branch_name}}</li>
+    </div>
+    <div class="col s5">
+        <li>Position:------{{JobDetails.position}}</li>
+        <li>Status:-------- {{JobDetails.status}}</li>
+        <li>Employees:-----{{JobDetails.employees}}</li>
+        <!--<li>Employees :{{this.id}}</li>-->
+    </div>
+    <div class="col s2">
+        <h4>
+        <a href="/JobDelete/{{JobDetails.id}}/{{JobDetails.position}}"> Delete </a>
+        </h4>
+    </div>
+</div>
+<h1>Employees</h1>
+<div class="row">
+{{#each Employee}}
+    <div class ="row">
+        <div class="col s8">
+        <li>Name:------------{{this.Ename}}</li>
+        <li>Number:----------{{this.Enumber}}</li>
+        </div>
+        <div class ="cols4">
+            <h4>
+                <a href="/Review/{{this.id}}"> Rate and Review </a>
+            </h4>
+        </div>
+    </div>
+
+{{/each}}
+</div>
